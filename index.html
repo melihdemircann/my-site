@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barış Savak</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 300vh;
+    background-image: url(images/background.png); /* Arka plan resmi yolu */
+    background-size: 150%; /* Resmi ekran boyutuna göre sığdır */
+    background-repeat: no-repeat; /* Resmin tekrar etmesini engelle */
+    background-position: center center; /* Resmi ortala */
+    background-color: rgb(24 24 24 );
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: normal;
+    font-feature-settings: normal;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    font-variation-settings: normal;
+    line-height: 1.5;
+    tab-size: 4;
+
+}
+footer {
+    background-color: var(--secondary-color);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center; /* Yatay ortalama */
+    align-items: center; /* Dikey ortalama */
+    height: 100vh; /* Sayfanın tamamını kapsaması için */
+    color: var(--text-color);
+}
+
+.footer-content {
+    text-align: center; /* Metin içeriğini ortalar */
+}
+
+footer p {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+.social-icons {
+    display: flex;
+    justify-content: center; /* İkonları yatayda ortalar */
+    gap: 2rem; /* İkonlar arasında boşluk bırakır */
+    margin-top: 1rem; /* Üst boşluk */
+}
+
+.social-icons a {
+    color: var(--text-color); /* İkonların rengi */
+    transition: color 0.3s ease; /* Renk değişiminde geçiş efekti */
+}
+
+.social-icons a:hover {
+    color: #ffffff; /* Üzerine gelince ikonların rengi değişir */
+}   
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="typing-effect glitch-effect" data-text="Cybersecurity Researcher | Computer Engineering">Cybersecurity Researcher | Computer Engineering</h1>
+        <p id="typing-text"></p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#hakkimda">About me</a></li>
+            <li><a href="#Technologies">Technologies</a></li>
+            <li><a href="#projeler">Projects</a></li>
+            <li><a href="#calismalar">Studies</a></li>
+            <li><a href="#iletisim">Contact me!</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="hakkimda">
+            <h2>About me</h2>
+            <img src="images/pp.jpeg" alt="Profil Resmi" class="profile-image">
+            <div class="terminal-style">cat hakkimda.txt</div>
+            <p>My interest in cybersecurity began in a presentation I attended. The next day, I started researching, and I fell in love. I said, 'I want to learn more about cybersecurity,' and then I went down the rabbit hole. Since that day, my only goal has been to learn
+
+                I am currently working on building a strong structure : What are firewalls, how do they work, basic scripting skills, network communication and protocol knowledge, operating systems, forensics, database knowledge, programming expertise, process knowledge, and types of attacks ... and much more than that</p>
+        </section>
+        
+        <section id="Technologies">
+            <h2>Technologies</h2>
+            <div class="terminal-style">ls -l Technologies/</div>
+            <div class="skill-list">
+                <span class="skill-item">C</span>
+                <span class="skill-item">C++</span>
+                <span class="skill-item">C#</span>
+                <span class="skill-item">Bootstrap</span>
+                <span class="skill-item">HTML5</span>
+                <span class="skill-item">CSS</span>
+                <span class="skill-item">Django</span>
+                <span class="skill-item">Linux</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">git</span>
+                <span class="skill-item">githup</span>
+                <span class="skill-item">PHP</span>
+                <span class="skill-item">Postman</span>
+                <span class="skill-item">Docker</span>
+
+            </div>
+        </section>
+        
+        <section id="projeler">
+            <h2>Projects</h2>
+            <div class="terminal-style">ls -l Projects/</div>
+            <div class="projects">
+                <div class="project-card">
+                    <h3>Web Shell</h3>
+                    <img src="images/OIP.jpeg" alt="Proje 1" style="width:150px; height:100; margin-bottom:10px;">
+                    <p>PHP kullanarak geliştirilen web shell aracıdır.</p>
+                </div>
+                <div class="project-card">
+                    <h3>C# Otomasyon</h3>
+                    <img src="images/OIP (1).jpeg" alt="Proje 1" style="width:150px; height:100; margin-bottom:10px;">
+                    <p>C# ile geliştirilen otomasyon uygulamamızın detaylarına buradaki bağlantıdan ulaşabilirsiniz. </p>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7217168484919631872">🌊 Ada Beach Kasa Takip ve Gelir Yönetimi Uygulaması 🌊
+                    </a>
+                </div>
+             
+            </div>
+        </section>
+        
+        <section id="calismalar">
+            <h2>Çalışma Konularım</h2>
+            <div class="terminal-style">cat calisma_konulari.log</div>
+            <ul class="topic-list">
+                <li class="topic-item">
+                    HTTP Nedir? Nasıl Çalışır?
+                    <div class="topic-details">
+                        HTTP (Hypertext Transfer Protocol), internet üzerinden veri alışverişi sağlayan bir protokoldür. İstemci ile sunucu arasında talepler gönderilir ve cevaplar alınır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Linux Sistemlerinde Adli Bilişim: Temel İnceleme Teknikleri ve Araçlar
+                    <div class="topic-details">
+                        Linux sistemlerinde adli bilişim incelemesi için kullanılan temel teknikler ve araçlar hakkında detaylı bir çalışma yaptım. Bu konu, dijital delillerin toplanması ve analizi için çok önemli.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Ağ Güvenliği: Firewall Konfigürasyonu ve Saldırı Tespiti
+                    <div class="topic-details">
+                        Firewall yapılandırması ve ağ saldırılarının tespiti konusunda derinlemesine bir araştırma yaptım. Bu çalışma, ağ güvenliği stratejilerini geliştirmeme yardımcı oldu.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Web Uygulama Güvenliği: OWASP Top 10 ve Güvenlik Açıklarının Giderilmesi
+                    <div class="topic-details">
+                        OWASP Top 10 listesindeki güvenlik açıklarını inceledim ve bunların nasıl giderileceği konusunda pratik yaptım. Bu çalışma, web uygulamalarının güvenliğini artırma konusunda çok faydalı oldu.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Kriptografi ve Veri Güvenliği
+                    <div class="topic-details">
+                        Kriptografi algoritmalarını inceleyerek veri güvenliğinin sağlanmasında kullanılan yöntemler üzerine bir çalışma gerçekleştirdim. Şifreleme ve kimlik doğrulama konuları üzerinde durdum.
+                    </div>
+                </li>
+               
+                <li class="topic-item">
+                    HTTPS ile Güvenli Web Tabanlı İletişim
+                    <div class="topic-details">
+                        HTTPS, HTTP’nin güvenli versiyonudur. SSL/TLS kullanarak veri iletimini şifreler ve gizliliği sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    TCP (Transmission Control Protocol) ve Veri İletimi
+                    <div class="topic-details">
+                        TCP, veri iletiminin güvenilir şekilde yapılmasını sağlayan bir protokoldür. Verilerin bölünmesi, gönderilmesi ve sıralı olarak yeniden birleştirilmesini sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    UDP (User Datagram Protocol) Nedir? Kullanım Alanları
+                    <div class="topic-details">
+                        UDP, hızlı ancak güvenilir olmayan bir veri iletim protokolüdür. Genellikle video akışı, oyunlar ve DNS sorguları gibi hızın kritik olduğu durumlarda kullanılır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    DNS Nedir? Güvenlik Riskleri ve Çözüm Yolları
+                    <div class="topic-details">
+                        DNS (Domain Name System), alan adlarını IP adreslerine çeviren sistemdir. DNS Spoofing ve Cache Poisoning gibi saldırılara karşı DNSSEC gibi güvenlik önlemleri alınabilir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Servis Nedir? Nasıl Çalışır? (Mail, FTP, vb. Bilinen Servisler)
+                    <div class="topic-details">
+                        Servisler, belirli bir ağ üzerinde çalışan yazılım hizmetleridir. Örneğin, Mail servisleri e-posta iletimini, FTP dosya transferini sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Port Nedir? Open, Closed, Filtered Gibi Durumlar Nelerdir?
+                    <div class="topic-details">
+                        Port, ağdaki servislerin dinlediği giriş noktasıdır. Open port, bir servisin aktif olduğunu, Closed port, servisin kapalı olduğunu ve Filtered port, trafiğin bir güvenlik duvarı ile filtrelendiğini gösterir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Man-in-the-Middle (MitM) Saldırıları ve Korunma Yöntemleri
+                    <div class="topic-details">
+                        MitM saldırılarında saldırgan, iki taraf arasındaki iletişimi dinler veya değiştirir. HTTPS, VPN ve şifreleme yöntemleriyle bu tür saldırılara karşı korunulabilir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Port Taramaları Nedir? Nasıl ve Neden Yapılır?
+                    <div class="topic-details">
+                        Port taramaları, bir sistemdeki açık portları ve bu portlarda çalışan servisleri tespit etmek için yapılır. Güvenlik açıklarını tespit etmek için kullanılır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Brute Force Saldırıları ve Parola Güvenliği
+                    <div class="topic-details">
+                        Brute Force saldırıları, olası tüm parola kombinasyonlarını deneyerek hesaplara erişmeye çalışır. Güçlü parolalar ve iki faktörlü kimlik doğrulama bu saldırılara karşı koruma sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Phishing (Oltalama) Saldırıları: Nasıl Tespit Edilir?
+                    <div class="topic-details">
+                        Phishing saldırılarında, kullanıcıları kandırarak hassas bilgilerini elde etme amaçlanır. Şüpheli e-posta ve mesajlardan kaçınmak, bu tür saldırılara karşı korunmada önemlidir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Firewall (Güvenlik Duvarı) Nedir?
+                    <div class="topic-details">
+                        Firewall, ağ trafiğini izleyip filtreleyerek yetkisiz erişimleri engelleyen bir güvenlik aracıdır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    VPN (Virtual Private Network) ile Güvenlik ve Gizlilik
+                    <div class="topic-details">
+                        VPN, internete şifreli bir tünel üzerinden bağlanarak gizliliği ve güvenliği artırır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    İki Faktörlü Kimlik Doğrulama (2FA) Nedir?
+                    <div class="topic-details">
+                        2FA, bir hesabın doğrulanması için iki farklı kimlik doğrulama yönteminin kullanılmasını sağlar. Bu, hesap güvenliğini önemli ölçüde artırır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    DDoS (Distributed Denial of Service) Saldırıları
+                    <div class="topic-details">
+                        DDoS saldırıları, bir sistemi veya ağı hizmet dışı bırakmak için çok sayıda talebin gönderildiği saldırılardır. Ağ trafiği izlenerek ve filtrelenerek bu saldırılara karşı korunulabilir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    SSH (Secure Shell) Nedir? Güvenli Bağlantılar
+                    <div class="topic-details">
+                        SSH, güvenli bir şekilde uzak sunuculara bağlanmayı sağlayan bir protokoldür. Verileri şifreleyerek bağlantıyı güvenli hale getirir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Kötü Amaçlı Eklentiler ve Tarayıcı Güvenliği
+                    <div class="topic-details">
+                        Tarayıcı eklentileri bazen kötü amaçlı olabilir ve kullanıcıların verilerini çalabilir. Eklentiler yüklenirken dikkatli olunmalı ve güvenilir kaynaklardan indirilmelidir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Güvenli Şifreleme Yöntemleri ve Hashing
+                    <div class="topic-details">
+                        Hashing, verilerin tek yönlü olarak şifrelenmesi işlemidir. MD5, SHA-256 gibi algoritmalar kullanılarak şifreler korunur.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Sosyal Mühendislik Saldırıları ve Bilinçli Kullanıcı Olmak
+                    <div class="topic-details">
+                        Sosyal mühendislik saldırıları, kullanıcıları kandırarak bilgi elde etme yöntemidir. Kullanıcıların bu tür saldırılara karşı dikkatli olmaları ve bilinçli hareket etmeleri önemlidir.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    SSL/TLS Sertifikaları Nedir? Nasıl Çalışır?
+                    <div class="topic-details">
+                        SSL ve TLS, internet üzerinden güvenli veri iletimi sağlamak için kullanılan protokollerdir. Sertifikalar, sitelerin kimliğini doğrulamak ve şifreleme sağlamak için kullanılır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    İşletim Sistemi Nedir? Nasıl Çalışır? Kullanıcı Hakları ve Dosya Hakları Nelerdir?
+                    <div class="topic-details">
+                        İşletim sistemi, donanım ile kullanıcı arasındaki etkileşimi yöneten yazılımdır. Kullanıcı ve dosya hakları, dosyalara kimlerin erişebileceğini belirler.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Aircrack-ng Nedir? Ne İşe Yarar?
+                    <div class="topic-details">
+                        Aircrack-ng, kablosuz ağların güvenlik testlerinde kullanılan bir araçtır. Ağlardaki şifreleme açıklarını tespit etmeye yarar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    FTP ve Man-in-the-Middle (MitM) Saldırıları
+                    <div class="topic-details">
+                        FTP üzerinden yapılan veri iletimleri şifrelenmemiş olabilir ve bu durum MitM saldırılarına açık hale getirir. SFTP gibi güvenli protokoller kullanılmalıdır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Web Nedir? Nasıl Çalışır?
+                    <div class="topic-details">
+                        Web, internet üzerindeki bilgi paylaşım platformudur. Tarayıcılar aracılığıyla web sitelerine erişim sağlanır ve HTTP/HTTPS protokolleri üzerinden veri iletimi yapılır.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    QUIC Protokolü Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Web Application Firewall (WAF) Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    MITRE ATT&CK Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Advanced Burp Suite Kullanımı
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    WAF Bypass Teknikleri
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    HTTP Request Splitting Nedir?
+                                        <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Remote Code Execution (RCE) Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Cookie Güvenliği
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Web Shell Saldırıları
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    OSI Katmanı: Layer 1 ve Layer 2
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Penetrasyon Testi Metodolojileri
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    OSI Katmanı: Layer 4
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Content Security Policy (CSP) Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Cross-Origin Resource Sharing (CORS) Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+                <li class="topic-item">
+                    Same-Origin Policy Nedir?
+                    <div class="topic-details">
+                        QUIC, Google tarafından geliştirilen bir protokoldür ve TCP yerine UDP tabanlıdır. Hızlı ve güvenilir internet bağlantıları sağlar.
+                    </div>
+                </li>
+               
+            </ul>
+        </section>
+        
+
+        <section id="iletisim">
+            <h2>Contact me!</h2>
+           
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/bar%C4%B1%C5%9F-savak-0ab478295/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <a href="https://twitter.com/your-profile" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+                <a href="https://github.com/bariss30" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Barış Savak. Tüm hakları saklıdır.</p>
+           
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
