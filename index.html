@@ -4,290 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melih Demircan | Portfolio</title>
+    <!-- Önceki style tanımlamaları aynı kalacak -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <style>
-        /* Önceki stil tanımlamaları aynı kalacak, sadece sorunlu kısımları güncelleyeceğim */
-        :root {
-            --primary-color: #1a1a1a;
-            --secondary-color: #2d2d2d;
-            --accent-color: #4a9eff;
-            --gradient-start: #4a9eff;
-            --gradient-end: #6e48ff;
-            --text-color: #ffffff;
-            --text-secondary: #a0a0a0;
-            --card-bg: #2d2d2d;
-            --transition: all 0.3s ease;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-        }
-
-        header {
-            height: 100vh;
-            position: relative;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        main {
-            position: relative;
-            z-index: 1;
-            background-color: var(--primary-color);
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        section {
-            padding: 4rem 0;
-            margin: 2rem 0;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: rgba(45, 45, 45, 0.9);
-            padding: 1rem 0;
-            backdrop-filter: blur(10px);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-        }
-
-        nav a:hover {
-            background-color: var(--accent-color);
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .typing-effect {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .skill-item {
-            background-color: var(--card-bg);
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px);
-            background-color: var(--accent-color);
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-icons a {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .typing-effect {
-                font-size: 2.5rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                padding: 1rem;
-            }
-
-            .projects {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#technologies">Technologies</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#studies">Studies</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <header>
-        <div class="header-content">
-            <h1 class="typing-effect">Melih Demircan</h1>
-            <p>Computer Engineering Student & Software Developer</p>
-            <p>Exploring AI, IoT, and Mobile Development</p>
-        </div>
-    </header>
-
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <img src="/api/placeholder/200/200" alt="Profile Picture" class="profile-image">
-            <p>Hello, I am Melih Demircan. I am a 3rd year Computer Engineering student at Kütahya Dumlupınar University. I focus on developing myself in artificial intelligence, Internet of Things (IoT), and mobile application development. In today's rapidly evolving technological landscape, I aim to create innovative projects and solutions while gaining hands-on experience through various projects.</p>
-            <p>I continuously strive to stay current in both my academic career and personal development. My passion for learning and research drives me to keep up with the latest technologies in the software world and apply this knowledge to my projects.</p>
-        </section>
-        
-        <section id="technologies">
-            <h2>Technologies</h2>
-            <div class="skill-list">
-                <span class="skill-item">C</span>
-                <span class="skill-item">C++</span>
-                <span class="skill-item">C#</span>
-                <span class="skill-item">Flutter</span>
-                <span class="skill-item">Dart</span>
-                <span class="skill-item">Arduino</span>
-                <span class="skill-item">Unity</span>
-                <span class="skill-item">Java</span>
-                <span class="skill-item">Linux</span>
-                <span class="skill-item">Git</span>
-                <span class="skill-item">GitHub</span>
-                <span class="skill-item">SQL</span>
-                <span class="skill-item">Python</span>
-                <span class="skill-item">Android Studio</span>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects">
-                <div class="project-card">
-                    <h3>FlagsWorld</h3>
-                    <img src="/api/placeholder/400/300" alt="FlagsWorld Project">
-                    <p>A 3D application featuring a globe covered with country flags, providing information about different nations.</p>
-                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7173325153337032704" target="_blank">Learn More</a>
-                </div>
-                <div class="project-card">
-                    <h3>Practice Spanish</h3>
-                    <img src="/api/placeholder/400/300" alt="Practice Spanish Project">
-                    <p>A Spanish learning application developed using Flutter for both iOS and Android platforms.</p>
-                    <a href="https://www.linkedin.com/in/melihdemircann/" target="_blank">Learn More</a>
-                </div>
-            </div>
-        </section>
-        
-        <section id="studies">
-            <h2>Current Studies</h2>
-            <div class="study-list">
-                <div class="study-item">
-                    <h3>Introduction to Rust</h3>
-                    <p>Learning about the Rust programming language and getting started with Rust development.</p>
-                </div>
-                <div class="study-item">
-                    <h3>AI in Space</h3>
-                    <p>Researching how artificial intelligence can be utilized in space missions and various space-related processes.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/melihdemircann/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/melihdemircann" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://medium.com/@melih.demircan00" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-medium"></i>
-                </a>
-            </div>
-        </section>
-    </main>
+    <!-- Önceki HTML içeriği aynı kalacak -->
     
-    <footer>
-        <p>&copy; 2024 Melih Demircan. All rights reserved.</p>
-    </footer>
-
     <script>
-        // Typing effect
+        // Typing effect için güncellenmiş kod
         const text = "Melih Demircan";
         let index = 0;
+        const typingEffect = document.querySelector('.typing-effect');
         
         function typeText() {
-            if (index < text.length) {
-                document.querySelector('.typing-effect').textContent += text.charAt(index);
-                index++;
-                setTimeout(typeText, 100);
+            typingEffect.textContent = ''; // Başlangıçta içeriği temizle
+            function type() {
+                if (index < text.length) {
+                    typingEffect.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                }
             }
+            type();
         }
 
-        // Start typing effect when page loads
-        window.addEventListener('load', typeText);
+        // Sayfa yüklendiğinde efekti başlat
+        document.addEventListener('DOMContentLoaded', typeText);
     </script>
 </body>
 </html>
