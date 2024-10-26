@@ -4,32 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melih Demircan | Portfolio</title>
-    <!-- Önceki style tanımlamaları aynı kalacak -->
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </head>
 <body>
-    <!-- Önceki HTML içeriği aynı kalacak -->
-    
-    <script>
-        // Typing effect için güncellenmiş kod
-        const text = "Melih Demircan";
-        let index = 0;
-        const typingEffect = document.querySelector('.typing-effect');
-        
-        function typeText() {
-            typingEffect.textContent = ''; // Başlangıçta içeriği temizle
-            function type() {
-                if (index < text.length) {
-                    typingEffect.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(type, 100);
-                }
-            }
-            type();
-        }
+    <nav>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#technologies">Technologies</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#studies">Studies</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        // Sayfa yüklendiğinde efekti başlat
-        document.addEventListener('DOMContentLoaded', typeText);
-    </script>
+    <header>
+        <div class="header-content">
+            <div id="typing-text"></div>
+            <p>Computer Engineering Student & Software Developer</p>
+            <p>Exploring AI, IoT, and Mobile Development</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <img src="profile-image.jpg" alt="Profile Picture" class="profile-image">
+            <p>Hello, I am Melih Demircan. I am a 3rd year Computer Engineering student at Kütahya Dumlupınar University. I focus on developing myself in artificial intelligence, Internet of Things (IoT), and mobile application development. In today's rapidly evolving technological landscape, I aim to create innovative projects and solutions while gaining hands-on experience through various projects.</p>
+            <p>I continuously strive to stay current in both my academic career and personal development. My passion for learning and research drives me to keep up with the latest technologies in the software world and apply this knowledge to my projects.</p>
+        </section>
+        
+        <section id="technologies">
+            <h2>Technologies</h2>
+            <div class="skill-list">
+                <span class="skill-item">C</span>
+                <span class="skill-item">C++</span>
+                <span class="skill-item">C#</span>
+                <span class="skill-item">Flutter</span>
+                <span class="skill-item">Dart</span>
+                <span class="skill-item">Arduino</span>
+                <span class="skill-item">Unity</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Linux</span>
+                <span class="skill-item">Git</span>
+                <span class="skill-item">GitHub</span>
+                <span class="skill-item">SQL</span>
+                <span class="skill-item">Python</span>
+                <span class="skill-item">Android Studio</span>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <h3>FlagsWorld</h3>
+                    <img src="flagsworld.jpg" alt="FlagsWorld Project">
+                    <p>A 3D application featuring a globe covered with country flags, providing information about different nations.</p>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7173325153337032704" target="_blank">Learn More</a>
+                </div>
+                <div class="project-card">
+                    <h3>Practice Spanish</h3>
+                    <img src="spanish.jpg" alt="Practice Spanish Project">
+                    <p>A Spanish learning application developed using Flutter for both iOS and Android platforms.</p>
+                    <a href="https://www.linkedin.com/in/melihdemircann/" target="_blank">Learn More</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="studies">
+            <h2>Current Studies</h2>
+            <div class="terminal-style">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <h3>Introduction to Rust</h3>
+                        <p>Learning about the Rust programming language and getting started with Rust development.</p>
+                    </div>
+                    <div class="topic-item">
+                        <h3>AI in Space</h3>
+                        <p>Researching how artificial intelligence can be utilized in space missions and various space-related processes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/melihdemircann/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/melihdemircann" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://medium.com/@melih.demircan00" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-medium"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Melih Demircan. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
