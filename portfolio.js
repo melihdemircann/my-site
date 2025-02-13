@@ -803,31 +803,27 @@ class EnhancedPortfolioManager extends PortfolioManager {
 // DOM yüklendiğinde ContactManager'ı başlat
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Portfolio ve Contact Manager'ı başlat
         window.portfolioManager = new EnhancedPortfolioManager(
             projects,
             introduction,
             studies
         );
         
-        // Hata ve performans izleme
         window.addEventListener('error', (event) => {
-            console.error('Portfolio hatası:', event.error);
+            console.error('Portfolio error:', event.error);
         });
 
-        // Performans izleme
         if (window.performance) {
             const navigationStart = performance.now();
             window.addEventListener('load', () => {
                 const loadTime = performance.now() - navigationStart;
-                console.log(`Sayfa yükleme süresi: ${loadTime}ms`);
+                console.log(`Page load time: ${loadTime}ms`);
             });
         }
     } catch (error) {
-        console.error('Portfolio başlatma hatası:', error);
+        console.error('Portfolio initialization error:', error);
     }
 });
-
 const introduction = {
     title: 'Hello,',
     content: `I am Melih Demircan. I am a 3rd-year Computer Engineering student at Kütahya Dumlupınar University. 
