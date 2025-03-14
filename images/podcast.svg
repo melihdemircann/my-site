@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- İkon arkaplanı - yuvarlak köşeli kare -->
+  <rect x="10" y="10" width="180" height="180" rx="40" ry="40" fill="#8e44ad" />
+  <rect x="10" y="10" width="180" height="180" rx="40" ry="40" fill="url(#gradient)" />
+  
+  <!-- Gradyan tanımı -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9b59b6" />
+      <stop offset="100%" stop-color="#8e44ad" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Merkez mikrofon simgesi -->
+  <circle cx="100" cy="70" r="25" fill="#ffffff" />
+  <rect x="87.5" y="70" width="25" height="45" rx="12.5" ry="12.5" fill="#ffffff" />
+  
+  <!-- Ses dalgaları -->
+  <path d="M60,90 Q100,130 140,90" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+  <path d="M70,75 Q100,125 130,75" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+  <path d="M50,105 Q100,155 150,105" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+</svg>

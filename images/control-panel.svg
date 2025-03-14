@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- İkon arkaplanı - yuvarlak köşeli kare -->
+  <rect x="10" y="10" width="180" height="180" rx="40" ry="40" fill="#2980b9" />
+  <rect x="10" y="10" width="180" height="180" rx="40" ry="40" fill="url(#gradient)" />
+  
+  <!-- Gradyan tanımı -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3498db" />
+      <stop offset="100%" stop-color="#2c3e50" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Denetim masası paneli çerçevesi -->
+  <rect x="40" y="50" width="120" height="100" rx="10" ry="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
+  
+  <!-- Düğmeler ve ayar çubukları -->
+  <!-- Ayar çubukları -->
+  <rect x="55" y="65" width="40" height="10" rx="5" ry="5" fill="#e74c3c" />
+  <circle cx="75" cy="70" r="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" />
+  
+  <rect x="55" y="85" width="40" height="10" rx="5" ry="5" fill="#f1c40f" />
+  <circle cx="65" cy="90" r="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" />
+  
+  <rect x="55" y="105" width="40" height="10" rx="5" ry="5" fill="#2ecc71" />
+  <circle cx="85" cy="110" r="8" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" />
+  
+  <!-- Döner düğme -->
+  <circle cx="120" cy="80" r="15" fill="#34495e" />
+  <circle cx="120" cy="80" r="12" fill="#2c3e50" stroke="#bdc3c7" stroke-width="1" />
+  <line x1="120" y1="80" x2="120" y2="70" stroke="#ffffff" stroke-width="2" />
+  
+  <!-- Butonlar -->
+  <rect x="105" y="105" width="30" height="12" rx="6" ry="6" fill="#9b59b6" />
+  <rect x="105" y="125" width="30" height="12" rx="6" ry="6" fill="#16a085" />
+  
+  <!-- Ekran -->
+  <rect x="50" y="145" width="100" height="20" rx="3" ry="3" fill="#2c3e50" />
+  <rect x="55" y="150" width="90" height="10" rx="2" ry="2" fill="#27ae60" />
+</svg>
