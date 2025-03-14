@@ -871,11 +871,11 @@ const projects = [
     },
     { 
         id: '4',
-        title: 'Parolla Games', 
-        image: './images/parolla-games.png',
-        description: 'Using C# and SQL, a game site was created with payment and inventory management system.',
-        technologies: ['C#', 'SQL', 'ASP.NET'],
-        github: 'https://github.com/melihdemircann/Parolla',
+        title: 'ToDo App', 
+        image: './images/to-do.svg',
+        description: 'A mobile application called things to do with Flutter was created.',
+        technologies: ['Flutter'],
+        github: 'https://github.com/melihdemircann/ToDo',
     },
     { 
         id: '5',
@@ -911,6 +911,24 @@ const projects = [
         description: 'Student grade recording system was created using C# and SQL.',
         technologies: ['C#', 'SQL'],
         github: 'https://github.com/melihdemircann/Grade-Recording-System',
+        demo: '#'
+    },
+        { 
+        id: '9',
+        title: 'Podcast App', 
+        image: './images/podcast.svg',
+        description: 'Podcast mobile application created with Flutter.',
+        technologies: ['Flutter'],
+        github: 'https://github.com/melihdemircann/podcast_app',
+        demo: '#'
+    },
+        { 
+        id: '10',
+        title: 'Control Panel', 
+        image: './images/personal-control.svg',
+        description: 'Personal control panel was created in C++ language.',
+        technologies: ['C++'],
+        github: 'https://github.com/melihdemircann/Denetim-Masasi',
         demo: '#'
     },
 ];
