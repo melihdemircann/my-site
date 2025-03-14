@@ -925,7 +925,7 @@ const projects = [
         { 
         id: '10',
         title: 'Control Panel', 
-        image: './images/personal-control.svg',
+        image: './images/control-panel.svg',
         description: 'Personal control panel was created in C++ language.',
         technologies: ['C++'],
         github: 'https://github.com/melihdemircann/Denetim-Masasi',
