@@ -1,7 +1,6 @@
 //app.jsx
-
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { TbLanguage } from 'react-icons/tb';
@@ -430,9 +429,10 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-<Router basename="/my-site">
+<HashRouter>
   <AppContent />
-</Router>
+</HashRouter>
+
     </ThemeProvider>
   );
 }
