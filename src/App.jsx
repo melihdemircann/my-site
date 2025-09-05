@@ -430,9 +430,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <AppContent />
-      </Router>
+<Router basename="/my-site">
+  <AppContent />
+</Router>
     </ThemeProvider>
   );
 }
