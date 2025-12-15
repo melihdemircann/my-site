@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melih Demircan - Bilgisayar Mühendisi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <canvas id="particles"></canvas>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MD</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#about">Hakkımda</a></li>
+                <li><a href="#experience">Deneyim</a></li>
+                <li><a href="#projects">Projeler</a></li>
+                <li><a href="#skills">Yetenekler</a></li>
+                <li><a href="#certificates">Sertifikalar</a></li>
+                <li><a href="#contact">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="typing-container">
+                    <h1 class="glitch" data-text="MELİH DEMİRCAN">MELİH DEMİRCAN</h1>
+                </div>
+                <p class="subtitle">Bilgisayar Mühendisi Öğrencisi</p>
+                <p class="tagline">Dumlupınar Üniversitesi • 2022-2026</p>
+                
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">İletişime Geç</a>
+                    <a href="https://github.com/melihdemircann" target="_blank" class="btn btn-secondary">GitHub</a>
+                </div>
+
+                <div class="tech-icons">
+                    <div class="tech-icon" title="C#">
+                        <span>C#</span>
+                    </div>
+                    <div class="tech-icon" title="Unity">
+                        <span>🎮</span>
+                    </div>
+                    <div class="tech-icon" title="Flutter">
+                        <span>📱</span>
+                    </div>
+                    <div class="tech-icon" title="Rust">
+                        <span>🦀</span>
+                    </div>
+                    <div class="tech-icon" title="Python">
+                        <span>🐍</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator"></div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="section-content">
+                <h2 data-text="Hakkımda">Hakkımda</h2>
+                <div class="about-container">
+                    <div class="about-card">
+                        <div class="about-icon">👨‍💻</div>
+                        <h3>Kimim?</h3>
+                        <p>
+                            Merhaba! Ben Melih Demircan, Dumlupınar Üniversitesi Bilgisayar Mühendisliği öğrencisiyim. 
+                            Yazılım geliştirme, oyun programlama ve mobil uygulama geliştirme konularında tutkulu bir geliştiriciyim.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">🎯</div>
+                        <h3>Ne Yapıyorum?</h3>
+                        <p>
+                            Unity ile oyun geliştirme, Flutter ile mobil uygulama, Rust ile sistem programlama ve Python 
+                            ile görüntü işleme projeleri üzerinde çalışıyorum. Teknofest ve çeşitli yarışmalarda aktif rol alıyorum.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon">🚀</div>
+                        <h3>Hedeflerim</h3>
+                        <p>
+                            Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. IEEE ve İnovasyon Liderlik Topluluğu gibi 
+                            kuruluşlarda aktif rol alarak hem öğreniyor hem de bilgimi paylaşıyorum.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-label">Proje</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="8">0</div>
+                        <div class="stat-label">Sertifika</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="3">0</div>
+                        <div class="stat-label">Tecrübe</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Etkinlik</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section" id="experience">
+            <div class="section-content">
+                <h2 data-text="Deneyim">Deneyim</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Temmuz 2025</div>
+                            <h3>IT Stajyeri</h3>
+                            <h4>Kaltun Grup</h4>
+                            <p>Şirketin IT departmanında staj yaparak gerçek dünya deneyimi kazandım.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Ekim 2023</div>
+                            <h3>Teknofest Takım Üyesi</h3>
+                            <h4>Uraz Model Uydu Takımı | AR-GE</h4>
+                            <p>Teknofest yarışması için AR-GE departmanında aktif rol aldım.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Mart 2023 - Günümüz</div>
+                            <h3>Eğitim Koordinatörü</h3>
+                            <h4>Anticverse - Depth Dwellers</h4>
+                            <p>Eğitim süreçlerinin koordinasyonunu sağladım.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Şubat 2023 - Günümüz</div>
+                            <h3>Kurucu</h3>
+                            <h4>Marsias</h4>
+                            <p>Kendi girişimimi kurdum ve Kütahya Girişim Hızlandırma Programı'nda 64 proje arasından seçildim.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section" id="projects">
+            <div class="section-content">
+                <h2 data-text="Projeler">Projeler</h2>
+                
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">Tümü</button>
+                    <button class="filter-btn" data-filter="game">Oyun</button>
+                    <button class="filter-btn" data-filter="mobile">Mobil</button>
+                    <button class="filter-btn" data-filter="web">Web/Desktop</button>
+                    <button class="filter-btn" data-filter="ai">AI/ML</button>
+                </div>
+
+                <div class="projects-grid">
+                    <div class="project-card" data-category="web">
+                        <div class="project-icon">🦀</div>
+                        <h3>HTML/CSS/JS Design Analyzer</h3>
+                        <p class="project-date">Temmuz 2025</p>
+                        <p>Rust ve PostgreSQL kullanarak web tasarımlarını analiz eden, puanlayan ve öneriler sunan bir analiz programı.</p>
+                        <div class="project-tags">
+                            <span>Rust</span>
+                            <span>PostgreSQL</span>
+                            <span>Web Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="web">
+                        <div class="project-icon">📝</div>
+                        <h3>Minimal Code Editor</h3>
+                        <p class="project-date">Temmuz 2025</p>
+                        <p>Rust ile geliştirilmiş, eklenti tabanlı minimal kod editörü.</p>
+                        <div class="project-tags">
+                            <span>Rust</span>
+                            <span>Plugin System</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="web">
+                        <div class="project-icon">🤝</div>
+                        <h3>SkillFlow</h3>
+                        <p class="project-date">Temmuz 2025</p>
+                        <p>Token sistemi ile çalışan işbirliği ve bilgi paylaşım platformu.</p>
+                        <div class="project-tags">
+                            <span>Platform</span>
+                            <span>Token System</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="game">
+                        <div class="project-icon">⚔️</div>
+                        <h3>Under Attack</h3>
+                        <p class="project-date">Temmuz 2024</p>
+                        <p>Unity ve C# kullanarak geliştirdiğim 2D mobil oyun.</p>
+                        <div class="project-tags">
+                            <span>Unity</span>
+                            <span>C#</span>
+                            <span>2D</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="game">
+                        <div class="project-icon">🛒</div>
+                        <h3>Shopping Life</h3>
+                        <p class="project-date">Mayıs 2024</p>
+                        <p>Unity ile geliştirilmiş 2D mobil oyun.</p>
+                        <div class="project-tags">
+                            <span>Unity</span>
+                            <span>C#</span>
+                            <span>Mobile</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="mobile">
+                        <div class="project-icon">🎸</div>
+                        <h3>Guitar Tab</h3>
+                        <p class="project-date">Mayıs 2024</p>
+                        <p>Flutter ile geliştirilmiş, gitaristlerin şarkı tablarını bulabileceği iOS ve Android uygulaması.</p>
+                        <div class="project-tags">
+                            <span>Flutter</span>
+                            <span>iOS</span>
+                            <span>Android</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="mobile">
+                        <div class="project-icon">🇪🇸</div>
+                        <h3>Practice Spanish</h3>
+                        <p class="project-date">Mayıs 2024</p>
+                        <p>Flutter ile geliştirdiğim İspanyolca öğrenme uygulaması.</p>
+                        <div class="project-tags">
+                            <span>Flutter</span>
+                            <span>Education</span>
+                            <span>Cross-platform</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="ai">
+                        <div class="project-icon">👁️</div>
+                        <h3>Image Processing</h3>
+                        <p class="project-date">Haziran 2024</p>
+                        <p>Python ve YOLOv5 kullanarak görüntü işleme programı geliştirdim.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>YOLOv5</span>
+                            <span>Computer Vision</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="game">
+                        <div class="project-icon">🌍</div>
+                        <h3>Country Information App</h3>
+                        <p class="project-date">Şubat 2024</p>
+                        <p>3D ülke bayrakları ile kaplı bir gezegen üzerinde ülke bilgileri sunan uygulama.</p>
+                        <div class="project-tags">
+                            <span>3D</span>
+                            <span>Unity</span>
+                            <span>Educational</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="web">
+                        <div class="project-icon">📊</div>
+                        <h3>Survey Chart</h3>
+                        <p class="project-date">Mayıs 2023</p>
+                        <p>C# kullanarak anket sonuçlarını grafiklerde gösteren uygulama.</p>
+                        <div class="project-tags">
+                            <span>C#</span>
+                            <span>Data Visualization</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="game">
+                        <div class="project-icon">🎮</div>
+                        <h3>Parolla Games</h3>
+                        <p class="project-date">Mayıs 2023</p>
+                        <p>C# kullanarak geliştirdiğim kelime oyunu.</p>
+                        <div class="project-tags">
+                            <span>C#</span>
+                            <span>Game</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="mobile">
+                        <div class="project-icon">✅</div>
+                        <h3>To Do</h3>
+                        <p class="project-date">Mart 2023</p>
+                        <p>Flutter ile geliştirdiğim iOS ve Android destekli görev listesi uygulaması.</p>
+                        <div class="project-tags">
+                            <span>Flutter</span>
+                            <span>Productivity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section" id="skills">
+            <div class="section-content">
+                <h2 data-text="Yetenekler">Yetenekler</h2>
+                
+                <div class="skills-category">
+                    <h3>Programlama Dilleri</h3>
+                    <div class="skills-container">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">C#</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">C</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Dart (Flutter)</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Rust</span>
+                                <span class="skill-percent">60%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Python</span>
+                                <span class="skill-percent">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Java</span>
+                                <span class="skill-percent">65%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">SQL</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Araçlar & Platformlar</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <span class="tool-icon">🎮</span>
+                            <span class="tool-name">Unity</span>
+                        </div>
+                        <div class="tool-card">
+                            <span class="tool-icon">📱</span>
+                            <span class="tool-name">Android Studio</span>
+                        </div>
+                        <div class="tool-card">
+                            <span class="tool-icon">🗄️</span>
+                            <span class="tool-name">SQL Server</span>
+                        </div>
+                        <div class="tool-card">
+                            <span class="tool-icon">🐘</span>
+                            <span class="tool-name">PostgreSQL</span>
+                        </div>
+                        <div class="tool-card">
+                            <span class="tool-icon">👓</span>
+                            <span class="tool-name">Vuforia AR</span>
+                        </div>
+                        <div class="tool-card">
+                            <span class="tool-icon">🥽</span>
+                            <span class="tool-name">VR Development</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Diller</h3>
+                    <div class="languages-grid">
+                        <div class="language-card">
+                            <span class="language-flag">🇹🇷</span>
+                            <span class="language-name">Türkçe</span>
+                            <span class="language-level">Ana Dil</span>
+                        </div>
+                        <div class="language-card">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">İngilizce</span>
+                            <span class="language-level">A2/B1</span>
+                        </div>
+                        <div class="language-card">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">İspanyolca</span>
+                            <span class="language-level">A1/A2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section class="section" id="certificates">
+            <div class="section-content">
+                <h2 data-text="Sertifikalar & Etkinlikler">Sertifikalar & Etkinlikler</h2>
+                
+                <div class="certificates-container">
+                    <div class="cert-category">
+                        <h3>📜 Sertifikalar</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-icon">✓</span>
+                                <div class="cert-info">
+                                    <h4>Computer Operation</h4>
+                                    <p>Temel bilgisayar işlemleri sertifikası</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">✓</span>
+                                <div class="cert-info">
+                                    <h4>BTK Academy - SQL Öğreniyorum</h4>
+                                    <p>Uygulamalı SQL eğitimi</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">✓</span>
+                                <div class="cert-info">
+                                    <h4>BTK Academy - Google Flutter</h4>
+                                    <p>Mobil uygulama geliştirme</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">✓</span>
+                                <div class="cert-info">
+                                    <h4>Turkcell Geleceği Yazanlar - Java</h4>
+                                    <p>Java 101/201/202 ve İleri Seviye Java 101</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">✓</span>
+                                <div class="cert-info">
+                                    <h4>Turkcell - C# Form Programlama</h4>
+                                    <p>Görsel ve Nesne Yönelimli Programlama 101/201</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-category">
+                        <h3>🎤 Etkinlikler & Seminerler</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-icon">🛡️</span>
+                                <div class="cert-info">
+                                    <h4>Cyber Security Summit</h4>
+                                    <p>Siber güvenlik zirvesine katılım</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">🎯</span>
+                                <div class="cert-info">
+                                    <h4>Kütahya DevFest 2023</h4>
+                                    <p>Google tarafından düzenlenen seminer</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">💡</span>
+                                <div class="cert-info">
+                                    <h4>GBS'6</h4>
+                                    <p>İnovasyon ve liderlik semineri</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">🌟</span>
+                                <div class="cert-info">
+                                    <h4>WeShape</h4>
+                                    <p>Google organize semineri</p>
+                                </div>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-icon">🚀</span>
+                                <div class="cert-info">
+                                    <h4>Kütahya Girişim Hızlandırma Programı</h4>
+                                    <p>64 proje arasından seçilerek başarılı temsil</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="section-content">
+                <h2 data-text="İletişim">İletişim</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Benimle İletişime Geçin</h3>
+                        <p>Projeler, iş birlikleri veya herhangi bir konu hakkında benimle iletişime geçebilirsiniz.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:melihdemircan14@gmail.com">melihdemircan14@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <div>
+                                    <h4>Telefon</h4>
+                                    <a href="tel:+905396390776">+90 539 639 07 76</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <div>
+                                    <h4>Konum</h4>
+                                    <p>Kütahya, Türkiye</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://github.com/melihdemircann" target="_blank" class="social-link" title="GitHub">
+                                <span>💻</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/melihdemircann" target="_blank" class="social-link" title="LinkedIn">
+                                <span>💼</span>
+                            </a>
+                            <a href="mailto:melihdemircan14@gmail.com" class="social-link" title="Email">
+                                <span>📧</span>
+                            </a>
+                            <a href="https://melihdemircann.github.io/my-site" target="_blank" class="social-link" title="Website">
+                                <span>🌐</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Melih Demircan. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
