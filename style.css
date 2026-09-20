@@ -6,6 +6,8 @@
 html, body {
   width: 100%; height: 100%;
   overflow: hidden;
+  position: fixed; inset: 0;
+  touch-action: none;
   background: #000;
   font-family: 'Space Mono', 'Courier New', monospace;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +19,7 @@ html, body {
   position: fixed; inset: 0;
   width: 100%; height: 100%;
   display: block;
+  touch-action: none;
 }
 
 /* ============================================================
@@ -267,12 +270,78 @@ html, body {
   50%       { opacity: 0.7; transform: scale(0.9); }
 }
 
-@media (max-width: 600px) {
-  .intro-first, .intro-last { font-size: clamp(3rem, 18vw, 5rem); }
-  #play-btn { padding: 0.85rem 1.8rem; font-size: 0.8rem; }
-  #nav-dots { bottom: 16px; gap: 8px; }
-  #walk-toggle { bottom: 16px; right: 16px; }
-  #sens-panel { bottom: 85px; right: 16px; }
+/* ============================================================
+   MOBILE GUIDE & LOOK CONTROLS
+   ============================================================ */
+.mobile-guide {
+  position: fixed;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: rgba(4, 20, 10, 0.88);
+  border: 1px solid rgba(100, 255, 150, 0.45);
+  color: #64ff96;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  white-space: nowrap;
+  max-width: 90vw;
+}
+.mobile-guide.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px);
+  pointer-events: none;
+}
+@media (min-width: 769px) {
+  .mobile-guide { display: none; }
+}
+
+#mobile-look-controls {
+  position: fixed;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  transition: opacity 0.5s;
+  pointer-events: auto;
+}
+#mobile-look-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+#mobile-look-controls button {
+  background: rgba(3, 16, 8, 0.85);
+  border: 1px solid rgba(100, 255, 150, 0.4);
+  border-radius: 16px;
+  color: #fff;
+  padding: 6px 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  user-select: none;
+  -webkit-user-select: none;
+}
+#mobile-look-controls button:active {
+  background: rgba(100, 255, 150, 0.35);
+  border-color: #64ff96;
+  transform: scale(0.95);
+}
+@media (min-width: 769px) {
+  #mobile-look-controls { display: none !important; }
 }
 
 /* ============================================================
@@ -286,7 +355,7 @@ html, body {
 }
 
 /* ============================================================
-   SCROLL HINT ANIMATION
+   SCROLL & TOUCH HINT ANIMATION
    ============================================================ */
 .scroll-hint {
   display: flex;
@@ -295,6 +364,12 @@ html, body {
   gap: 0.5rem;
   margin-top: 1.5rem;
   animation: fadeIn 1.2s ease 1s both;
+}
+
+.device-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mouse-icon {
@@ -318,12 +393,31 @@ html, body {
   animation: scrollWheel 1.6s ease-in-out infinite;
 }
 
+.touch-icon {
+  display: none;
+  width: 28px;
+  height: 28px;
+  color: #64ff96;
+  animation: pulse 2s ease-in-out infinite;
+}
+.touch-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .mouse-icon { display: none; }
+  .touch-icon { display: block; }
+}
+
 .scroll-text {
   font-family: 'Space Mono', monospace;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  text-align: center;
+  max-width: 320px;
 }
 
 @keyframes scrollWheel {
@@ -346,6 +440,70 @@ html, body {
     opacity: 0;
     top: 6px;
     height: 6px;
+  }
+}
+
+/* Nav dots hit area for touch */
+.ndot::before {
+  content: '';
+  position: absolute;
+  top: -10px; bottom: -10px; left: -10px; right: -10px;
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================================ */
+@media (max-width: 768px) {
+  .intro-content {
+    padding: 1.5rem 1rem;
+    gap: 1.1rem;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  .intro-first, .intro-last { font-size: clamp(2.8rem, 15vw, 4.8rem); }
+  .intro-title { font-size: 0.78rem; letter-spacing: 0.2em; }
+  #play-btn {
+    margin-top: 1rem;
+    padding: 0.85rem 2rem;
+    font-size: 0.82rem;
+  }
+  .intro-hint { font-size: 0.58rem; }
+  .scroll-hint { margin-top: 0.8rem; }
+  .scroll-text { font-size: 0.65rem; }
+
+  #hud {
+    padding: 0.8rem 1rem 0;
+  }
+  #hud-section { font-size: 0.68rem; }
+
+  #nav-dots {
+    bottom: 18px;
+    left: 36%;
+    transform: translateX(-50%);
+    gap: 10px;
+  }
+  #walk-toggle {
+    bottom: 14px;
+    right: 12px;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.74rem;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .intro-first, .intro-last { font-size: clamp(2.4rem, 14vw, 3.8rem); }
+  #play-btn { padding: 0.75rem 1.6rem; font-size: 0.78rem; }
+  #nav-dots {
+    left: 32%;
+    gap: 8px;
+  }
+  #walk-toggle {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.68rem;
+  }
+  #toggle-label {
+    font-size: 0.65rem;
   }
 }
 
