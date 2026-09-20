@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Melih Demircan — Developer & Designer</title>
   <meta name="description"
     content="Melih Demircan — Bilgisayar Mühendisi, AI geliştirici ve girişimci. 3D CV portfolyosu." />
@@ -34,10 +35,18 @@
       </button>
       <div class="intro-hint">Eğitim · Deneyim · Projeler · Sertifikalar · Yetenekler</div>
       <div class="scroll-hint">
-        <div class="mouse-icon">
-          <div class="wheel"></div>
+        <div class="device-icon">
+          <div class="mouse-icon">
+            <div class="wheel"></div>
+          </div>
+          <div class="touch-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v8m-4-4l4-4 4 4" />
+              <path d="M7 14c-1.1 0-2 .9-2 2v3c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3v-6c0-1.1-.9-2-2-2s-2 .9-2 2v1" />
+            </svg>
+          </div>
         </div>
-        <span class="scroll-text">Kaydırarak (scroll) veya tuşlarla ileri-geri hareket edebilirsiniz</span>
+        <span class="scroll-text">Kaydırarak (scroll) veya dokunarak ileri-geri gezinebilirsiniz</span>
       </div>
     </div>
     <div class="intro-scanlines"></div>
@@ -70,6 +79,18 @@
   </button>
 
 
+
+  <!-- Mobile Guide Tooltip -->
+  <div id="mobile-guide" class="mobile-guide hidden">
+    <span>👆 Sağa/sola bakmak için kaydırın</span>
+  </div>
+
+  <!-- Mobile Quick Look Buttons (Visible on mobile screens) -->
+  <div id="mobile-look-controls" class="hidden">
+    <button id="look-left-btn" aria-label="Sola bak">◂ SOLA BAK</button>
+    <button id="look-front-btn" aria-label="Öne bak">ÖN</button>
+    <button id="look-right-btn" aria-label="Sağa bak">SAĞA BAK ▸</button>
+  </div>
 
   <!-- Canvas -->
   <canvas id="c"></canvas>
