@@ -273,16 +273,22 @@ const SECTIONS = [
 ];
 
 // ──────────────────────────────────────────────────────────────
-//  THREE.JS SETUP
+//  THREE.JS SETUP & DEVICE OPTIMIZATION
 // ──────────────────────────────────────────────────────────────
 const W = () => window.innerWidth;
 const H = () => window.innerHeight;
+const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent) || window.innerWidth < 768;
 
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("c"), antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById("c"),
+  antialias: !isMobile,
+  powerPreference: "high-performance",
+  precision: isMobile ? "mediump" : "highp"
+});
+renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.25) : Math.min(window.devicePixelRatio, 2));
 renderer.setSize(W(), H());
 renderer.setClearColor(0x000000, 1);
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = false; // Disable unused shadow map passes
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x000000, 18, 60);
@@ -290,11 +296,21 @@ scene.fog = new THREE.Fog(0x000000, 18, 60);
 const camera = new THREE.PerspectiveCamera(72, W() / H(), 0.1, 120);
 camera.position.set(0, 1.7, 5);   // eye-height 1.7m
 
-window.addEventListener("resize", () => {
-  camera.aspect = W() / H();
+function updateCameraFov() {
+  const aspect = W() / H();
+  camera.aspect = aspect;
+  if (aspect < 1) {
+    // Dynamic FOV for portrait mobile: widen field of view so wall signs are clearly visible
+    camera.fov = Math.min(94, 72 + (1 - aspect) * 32);
+  } else {
+    camera.fov = 72;
+  }
   camera.updateProjectionMatrix();
   renderer.setSize(W(), H());
-});
+}
+
+window.addEventListener("resize", updateCameraFov);
+updateCameraFov();
 
 // ──────────────────────────────────────────────────────────────
 //  CORRIDOR GEOMETRY
@@ -368,10 +384,10 @@ function wallMat(color) {
   scene.add(helper);
 }
 
-// Ceiling lights (strip emitters)
+// Ceiling lights (luminous neon strip emitters)
 for (let z = 0; z < CORRIDOR_LEN; z += 12) {
   const geo = new THREE.PlaneGeometry(0.3, 2.5);
-  const mat = new THREE.MeshBasicMaterial({ color: 0x88ffaa, transparent: true, opacity: 0.15 });
+  const mat = new THREE.MeshBasicMaterial({ color: 0x88ffaa, transparent: true, opacity: 0.28 });
   const m = new THREE.Mesh(geo, mat);
   m.rotation.x = Math.PI / 2;
   m.position.set(0, CORRIDOR_H - 0.01, -(z + 2));
@@ -379,31 +395,28 @@ for (let z = 0; z < CORRIDOR_LEN; z += 12) {
 }
 
 // ──────────────────────────────────────────────────────────────
-//  LIGHTS
+//  LIGHTS (Performance Optimized: Ambient + Dynamic Follow Light)
 // ──────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+scene.add(new THREE.AmbientLight(0xffffff, 1.2));
 
-// Walk light (follows camera)
-const walkLight = new THREE.PointLight(0x88ffcc, 3.0, 25);
+// Dynamic walk light (follows camera smoothly, illuminating signs and corridor)
+const walkLight = new THREE.PointLight(0x88ffcc, 2.8, 28, 1.5);
 walkLight.castShadow = false;
 scene.add(walkLight);
 
-// Ceiling strip lights every 12 units
-for (let z = 0; z < CORRIDOR_LEN; z += 12) {
-  const l = new THREE.PointLight(0x66ff88, 1.2, 18);
-  l.position.set(0, CORRIDOR_H - 0.2, -(z + 2));
-  scene.add(l);
-}
+// ──────────────────────────────────────────────────────────────
+//  CANVAS TEXTURE → SIGN (Optimized Texture Memory)
+// ──────────────────────────────────────────────────────────────
+const clickableMeshes = [];
 
-// ──────────────────────────────────────────────────────────────
-//  CANVAS TEXTURE → SIGN
-// ──────────────────────────────────────────────────────────────
 function makeSignTexture(heading, lines, themeColor) {
-  const CW = 1200, PADDING = 60;
-  const lineHeights = lines.map(l => l.size * 1.8);
+  const CW = isMobile ? 800 : 1200;
+  const scale = CW / 1200;
+  const PADDING = Math.round(60 * scale);
+  const lineHeights = lines.map(l => (l.size * scale) * 1.8);
   const totalTextH = lineHeights.reduce((a, b) => a + b, 0);
-  const headingH = heading ? 80 : 0;
-  const CH = PADDING * 2 + headingH + totalTextH + 20;
+  const headingH = heading ? Math.round(80 * scale) : 0;
+  const CH = PADDING * 2 + headingH + totalTextH + Math.round(20 * scale);
 
   const cv = document.createElement("canvas");
   cv.width = CW;
@@ -417,26 +430,27 @@ function makeSignTexture(heading, lines, themeColor) {
   // Subtle tech grid pattern
   ctx.strokeStyle = "rgba(255, 255, 255, 0.02)";
   ctx.lineWidth = 1;
-  for (let x = 0; x < CW; x += 40) {
+  const gridStep = Math.round(40 * scale);
+  for (let x = 0; x < CW; x += gridStep) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, cv.height); ctx.stroke();
   }
-  for (let y = 0; y < cv.height; y += 40) {
+  for (let y = 0; y < cv.height; y += gridStep) {
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(CW, y); ctx.stroke();
   }
 
   // Glow border with themeColor
   const mainColor = themeColor || "#64ff96";
   ctx.shadowColor = mainColor;
-  ctx.shadowBlur = 12;
+  ctx.shadowBlur = Math.round(12 * scale);
   ctx.strokeStyle = mainColor;
-  ctx.lineWidth = 2.5;
+  ctx.lineWidth = Math.max(1.5, 2.5 * scale);
   ctx.strokeRect(10, 10, CW - 20, cv.height - 20);
   ctx.shadowBlur = 0;
 
   // Corner HUD Brackets
   ctx.strokeStyle = mainColor;
-  ctx.lineWidth = 5;
-  const bracketLen = 30;
+  ctx.lineWidth = Math.max(3, 5 * scale);
+  const bracketLen = Math.round(30 * scale);
   const padding = 10;
   ctx.beginPath();
   ctx.moveTo(padding + bracketLen, padding); ctx.lineTo(padding, padding); ctx.lineTo(padding, padding + bracketLen);
@@ -457,27 +471,29 @@ function makeSignTexture(heading, lines, themeColor) {
   // Text & Heading
   let y = PADDING;
   if (heading) {
+    const barH = Math.round(50 * scale);
     ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
-    ctx.fillRect(PADDING, y, CW - PADDING * 2, 50);
+    ctx.fillRect(PADDING, y, CW - PADDING * 2, barH);
     ctx.strokeStyle = mainColor;
     ctx.lineWidth = 1;
-    ctx.strokeRect(PADDING, y, CW - PADDING * 2, 50);
+    ctx.strokeRect(PADDING, y, CW - PADDING * 2, barH);
 
     // Tech details
     ctx.fillStyle = mainColor;
-    ctx.font = "bold 12px 'Space Mono', monospace";
-    ctx.fillText("STATUS: ACTIVE // LOG", PADDING + 12, y - 6);
+    ctx.font = `bold ${Math.round(12 * scale)}px 'Space Mono', monospace`;
+    ctx.fillText("STATUS: ACTIVE // LOG", PADDING + 12, y - 4);
 
     ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 24px 'Inter', sans-serif";
+    ctx.font = `bold ${Math.round(24 * scale)}px 'Inter', sans-serif`;
     ctx.textAlign = "left";
-    ctx.fillText(heading, PADDING + 20, y + 34);
-    y += 85;
+    ctx.fillText(heading, PADDING + Math.round(20 * scale), y + Math.round(34 * scale));
+    y += Math.round(85 * scale);
   }
 
   // Draw lines
   lines.forEach((line) => {
-    ctx.font = `${line.bold ? "bold " : ""}${line.size}px 'Inter', sans-serif`;
+    const fontSize = Math.round(line.size * scale);
+    ctx.font = `${line.bold ? "bold " : ""}${fontSize}px 'Inter', sans-serif`;
     ctx.fillStyle = line.color || "#ffffff";
     ctx.textAlign = "center";
 
@@ -490,12 +506,14 @@ function makeSignTexture(heading, lines, themeColor) {
       ctx.shadowBlur = 4;
     }
 
-    ctx.fillText(textStr, CW / 2, y + line.size);
+    ctx.fillText(textStr, CW / 2, y + fontSize);
     ctx.shadowBlur = 0;
-    y += line.size * 1.8;
+    y += fontSize * 1.8;
   });
 
   const tex = new THREE.CanvasTexture(cv);
+  tex.minFilter = THREE.LinearFilter;
+  tex.generateMipmaps = false; // Saves 33% texture VRAM
   return { tex, aspect: CW / cv.height };
 }
 
@@ -518,6 +536,7 @@ function placeSign(section, sign) {
   const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
   const mesh = new THREE.Mesh(geo, mat);
   mesh.userData = { section, sign };
+  clickableMeshes.push(mesh); // Pre-cached for fast raycast without scene.traverse
 
   const eyeY = CORRIDOR_H * 0.55;
 
@@ -561,11 +580,27 @@ SECTIONS.forEach(sec => {
 // ──────────────────────────────────────────────────────────────
 //  SIGN PROPS — Her tabelanın önüne konuya özel 3D nesne
 // ──────────────────────────────────────────────────────────────
-const animatedProps = []; // { mesh, type, baseY, phase }
+const animatedProps = []; // { mesh, type, baseY, phase, ...cachedRefs }
 
 function addProp(mesh, type, baseY, phase) {
   scene.add(mesh);
-  animatedProps.push({ mesh, type, baseY: baseY ?? mesh.position.y, phase: phase ?? 0 });
+  // Pre-cache animation targets once at initialization — zero GC allocations during render
+  const p = {
+    mesh,
+    type,
+    baseY: baseY ?? mesh.position.y,
+    phase: phase ?? 0,
+    hasCone: mesh.children.some(c => c.geometry && c.geometry.type === "ConeGeometry"),
+    isGamepad: mesh.children.some(c => c.geometry && c.geometry.type === "BoxGeometry" && c.position.x !== 0 && Math.abs(c.position.x) > 0.15),
+    cursor: mesh.children.find(c => c.geometry && c.geometry.type === "BoxGeometry" && c.position.y < -0.05),
+    arcs: mesh.children.filter(c => c.geometry && c.geometry.type === "TorusGeometry"),
+    nodes: mesh.children.filter(c => c.geometry && c.geometry.type === "SphereGeometry" && c.scale),
+    scanLine: mesh.children.find(c => c.geometry && c.geometry.type === "BoxGeometry"),
+    seg2: mesh.children.find(c => c.rotation && c.rotation.z !== 0),
+    child0: mesh.children[0],
+    child1: mesh.children[1]
+  };
+  animatedProps.push(p);
 }
 
 function makeDNAHelix(color, z, side) {
@@ -588,9 +623,6 @@ function makeDNAHelix(color, z, side) {
       g.add(rod);
     }
   }
-  const l = new THREE.PointLight(color, 2.0, 6);
-  l.position.set(0, 0, 0);
-  g.add(l);
   const x = side === "left" ? -2.5 : 2.5;
   g.position.set(x, 1.8, -z);
   return g;
@@ -611,9 +643,6 @@ function makeGear(color, z, side) {
   }
   const hole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.14, 12), new THREE.MeshBasicMaterial({ color: 0x000000 }));
   g.add(hole);
-  const l = new THREE.PointLight(0xffa500, 2.0, 6);
-  l.position.set(0, 0.2, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.4, -z);
   g.rotation.x = Math.PI / 2;
@@ -640,9 +669,6 @@ function makeRobotArm(z, side) {
   claw1.position.set(0.1, 0.95, 0);
   g.add(claw1);
   const claw2 = claw1.clone(); claw2.position.x = -0.1; g.add(claw2);
-  const l = new THREE.PointLight(0x00ffee, 2.0, 6);
-  l.position.set(0, 0.5, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 0.5, -z);
   return g;
@@ -660,9 +686,6 @@ function makeQuantumSphere(z, side) {
     ring.rotation.y = (i / 3) * Math.PI * 0.7;
     g.add(ring);
   }
-  const l = new THREE.PointLight(0xff44ee, 2.0, 7);
-  l.position.set(0, 0, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.6, -z);
   return g;
@@ -679,9 +702,6 @@ function makeEyeScanner(z, side) {
   const scanLine = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.02, 0.02), new THREE.MeshBasicMaterial({ color: 0xcc44ff }));
   scanLine.position.set(0, -0.28, 0);
   g.add(scanLine);
-  const l = new THREE.PointLight(0xcc44ff, 2.0, 7);
-  l.position.set(0, 0, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.6, -z);
   return g;
@@ -694,9 +714,6 @@ function makeGlobe(z, side) {
   const axis = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.75, 4), new THREE.MeshBasicMaterial({ color: 0xffffff }));
   axis.rotation.z = 0.4;
   g.add(axis);
-  const l = new THREE.PointLight(0x00ffee, 2.0, 7);
-  l.position.set(0, 0, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.5, -z);
   return g;
@@ -712,9 +729,6 @@ function makeNewsStack(z, side) {
     page.rotation.z = (i - 1) * 0.08;
     g.add(page);
   });
-  const l = new THREE.PointLight(0xff00ff, 2.0, 6);
-  l.position.set(0, 0.2, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 0.9, -z);
   return g;
@@ -733,9 +747,6 @@ function makeWifiAntenna(z, side) {
     arc.rotation.y = Math.PI / 2;
     g.add(arc);
   });
-  const l = new THREE.PointLight(0x00ffee, 2.0, 6);
-  l.position.set(0, 0.5, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 0.5, -z);
   return g;
@@ -759,9 +770,6 @@ function makeNetworkNodes(z, side) {
     const pts = [nodes[a], nodes[b]];
     g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), edgeMat));
   });
-  const l = new THREE.PointLight(0xffee00, 2.0, 7);
-  l.position.set(0, 0, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.4, -z);
   return g;
@@ -781,9 +789,6 @@ function makeGamepad(z, side) {
   });
   const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.06, 8), new THREE.MeshBasicMaterial({ color: 0xffee00 }));
   stick.position.set(-0.12, 0.02, 0.07); g.add(stick);
-  const l = new THREE.PointLight(0xff0055, 2.0, 6);
-  l.position.set(0, 0.2, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.4, -z);
   return g;
@@ -797,9 +802,6 @@ function makeScrollBook(z, side) {
   page.position.z = 0.05; g.add(page);
   const spine = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.5, 0.06), new THREE.MeshBasicMaterial({ color: 0xcc1111 }));
   spine.position.x = -0.23; g.add(spine);
-  const l = new THREE.PointLight(0xff3333, 2.0, 7);
-  l.position.set(0, 0, 0.1);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.4, -z);
   return g;
@@ -817,9 +819,6 @@ function makeChipBoard(z, side) {
     const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.06, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }));
     cap.position.set(x, y, 0.04); cap.rotation.x = Math.PI / 2; g.add(cap);
   });
-  const l = new THREE.PointLight(0x00ff66, 2.0, 7);
-  l.position.set(0, 0, 0.15);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.6, -z);
   return g;
@@ -834,9 +833,6 @@ function makeRocketBadge(z, side) {
   const fin2 = fin1.clone(); fin2.position.x = -0.12; g.add(fin2);
   const flame = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0xffaa00 }));
   flame.position.y = -0.3; g.add(flame);
-  const l = new THREE.PointLight(0xff6600, 2.0, 7);
-  l.position.set(0, -0.2, 0);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.0, -z);
   return g;
@@ -852,9 +848,6 @@ function makeDiplomaCert(z, side) {
   seal.position.set(0.14, -0.08, 0.05); seal.rotation.x = Math.PI / 2; g.add(seal);
   const ribbon = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.12, 0.02), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
   ribbon.position.set(0.14, -0.02, 0.06); g.add(ribbon);
-  const l = new THREE.PointLight(0xffa500, 2.0, 6);
-  l.position.set(0, 0, 0.1);
-  g.add(l);
   g.position.set(0, 1.4, -z);
   return g;
 }
@@ -871,9 +864,6 @@ function makeTerminalBox(z, side) {
   });
   const cursor = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.025, 0.01), new THREE.MeshBasicMaterial({ color: 0xffee00 }));
   cursor.position.set(0.1, -0.1, 0.025); g.add(cursor);
-  const l = new THREE.PointLight(0xffee00, 2.0, 6);
-  l.position.set(0, 0, 0.1);
-  g.add(l);
   const x = side === "left" ? -2.8 : 2.8;
   g.position.set(x, 1.5, -z);
   return g;
@@ -981,9 +971,6 @@ function spawnSignProps() {
     }
     starG.position.set(0, 2.6, -(srtZ + dz));
     addProp(starG, "spinY", 2.6, i * 0.2);
-    const certLight = new THREE.PointLight(0xff8800, 1.5, 8);
-    certLight.position.set(0, 2.0, -(srtZ + dz));
-    scene.add(certLight);
   });
 
   // ── YETENEKLER ──
@@ -1109,11 +1096,6 @@ function makeDoor(zPos) {
     rightPanel.add(dg);
   });
   group.add(rightPanel);
-
-  // Door light
-  const doorLight = new THREE.PointLight(0x44ff88, 2.0, 10);
-  doorLight.position.set(0, DOOR_H * 0.6, 1);
-  group.add(doorLight);
 
   scene.add(group);
   doors.push({ group, leftPanel, rightPanel, zPos, openAmount: 0 });
@@ -1354,23 +1336,17 @@ const clickRaycaster = new THREE.Raycaster();
 const clickMouse = new THREE.Vector2();
 
 window.addEventListener("mousemove", e => {
+  if (isMobile) return; // Skip hover detection on touch devices
   mouseX = (e.clientX / W() - 0.5) * 2;
   mouseY = (e.clientY / H() - 0.5) * 2;
 
-  // Hover detection for clickable link areas
+  // Hover detection for clickable link areas using pre-cached meshes
   let hoverLink = false;
   const intro = document.getElementById("intro");
   if (intro && intro.classList.contains("hidden")) {
     clickMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     clickMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
     clickRaycaster.setFromCamera(clickMouse, camera);
-
-    const clickableMeshes = [];
-    scene.traverse(child => {
-      if (child.isMesh && child.userData && child.userData.sign) {
-        clickableMeshes.push(child);
-      }
-    });
 
     const intersects = clickRaycaster.intersectObjects(clickableMeshes);
     if (intersects.length > 0) {
@@ -1381,9 +1357,9 @@ window.addEventListener("mousemove", e => {
       const localPoint = mesh.worldToLocal(hit.point.clone());
       const y = localPoint.y;
 
-      if (section.id === "intro") {
+      if (section && section.id === "intro") {
         if (y >= -0.6 && y <= 0.3) hoverLink = true;
-      } else if (section.id === "yetenekler" && sign.heading === "İLETİŞİM & BAĞLANTILAR") {
+      } else if (section && section.id === "yetenekler" && sign.heading === "İLETİŞİM & BAĞLANTILAR") {
         if (y >= -0.8 && y <= 0.8) hoverLink = true;
       }
     }
@@ -1396,23 +1372,77 @@ function jumpTo(sectionZStart) {
   camZTarget = Math.max(MIN_Z, Math.min(MAX_Z, camZTarget));
 }
 
-// Scroll to manually move
+// Scroll to manually move (wheel)
 window.addEventListener("wheel", e => {
   e.preventDefault();
   camZTarget -= e.deltaY * 0.04;
   camZTarget = Math.max(MIN_Z, Math.min(MAX_Z, camZTarget));
 }, { passive: false });
 
-let touchY0 = null;
-window.addEventListener("touchstart", e => { touchY0 = e.touches[0].clientY; }, { passive: true });
-window.addEventListener("touchmove", e => {
-  if (touchY0 === null) return;
-  const dy = touchY0 - e.touches[0].clientY;
-  touchY0 = e.touches[0].clientY;
-  camZTarget -= dy * 0.05;
-  camZTarget = Math.max(MIN_Z, Math.min(MAX_Z, camZTarget));
+// ── Mobile Touch Controls (Swipe to Look & Scroll, Tap to Click) ──
+let touchStartX = 0, touchStartY = 0;
+let lastTouchX = 0, lastTouchY = 0;
+let touchStartTime = 0;
+let isTouchSwiping = false;
+let touchMovedDist = 0;
+
+window.addEventListener("touchstart", e => {
+  if (e.touches.length === 1) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    lastTouchX = touchStartX;
+    lastTouchY = touchStartY;
+    touchStartTime = Date.now();
+    isTouchSwiping = true;
+    touchMovedDist = 0;
+  }
 }, { passive: true });
-window.addEventListener("touchend", () => { touchY0 = null; });
+
+window.addEventListener("touchmove", e => {
+  if (!isTouchSwiping || e.touches.length !== 1) return;
+  const currentX = e.touches[0].clientX;
+  const currentY = e.touches[0].clientY;
+  const dx = currentX - lastTouchX;
+  const dy = currentY - lastTouchY;
+  touchMovedDist += Math.hypot(dx, dy);
+
+  // Horizontal swipe -> look left & right at wall signs smoothly
+  camYawTarget += dx * 0.0055;
+  camYawTarget = Math.max(-Math.PI * 0.48, Math.min(Math.PI * 0.48, camYawTarget));
+
+  // Vertical swipe -> move forward/backward along corridor
+  camZTarget -= dy * 0.045;
+  camZTarget = Math.max(MIN_Z, Math.min(MAX_Z, camZTarget));
+
+  // Slight pitch adjustment
+  camPitchTarget -= dy * 0.001;
+  camPitchTarget = Math.max(-0.35, Math.min(0.35, camPitchTarget));
+
+  lastTouchX = currentX;
+  lastTouchY = currentY;
+}, { passive: true });
+
+window.addEventListener("touchend", e => {
+  if (!isTouchSwiping) return;
+  isTouchSwiping = false;
+  const duration = Date.now() - touchStartTime;
+
+  // Clean tap detection (minimal movement & short duration)
+  if (touchMovedDist < 12 && duration < 350) {
+    const touch = e.changedTouches[0];
+    if (touch) {
+      const targetElem = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (targetElem && (targetElem.closest("button") || targetElem.closest("#nav-dots") || targetElem.closest("#hud") || targetElem.closest("#mobile-look-controls"))) {
+        return;
+      }
+      const fakeEvent = { clientX: touch.clientX, clientY: touch.clientY };
+      const wasLinkClicked = handleSignRaycast(fakeEvent);
+      if (!wasLinkClicked) {
+        setWalking(!walking);
+      }
+    }
+  }
+});
 
 // ──────────────────────────────────────────────────────────────
 //  PLAY BUTTON
@@ -1422,9 +1452,46 @@ document.getElementById("play-btn").addEventListener("click", () => {
   document.getElementById("hud").classList.remove("hidden");
   document.getElementById("nav-dots").classList.remove("hidden");
   document.getElementById("walk-toggle").classList.remove("hidden");
+
+  // Show mobile guide and look controls on mobile
+  if (isMobile) {
+    const lookCtrl = document.getElementById("mobile-look-controls");
+    if (lookCtrl) lookCtrl.classList.remove("hidden");
+    const guide = document.getElementById("mobile-guide");
+    if (guide) {
+      guide.classList.remove("hidden");
+      setTimeout(() => guide.classList.add("hidden"), 4200);
+    }
+  }
+
   applyTheme(0, true); // Apply start theme instantly
   walking = true;
 });
+
+// Mobile Quick Look Button Listeners
+const lookLeftBtn = document.getElementById("look-left-btn");
+const lookFrontBtn = document.getElementById("look-front-btn");
+const lookRightBtn = document.getElementById("look-right-btn");
+
+if (lookLeftBtn) {
+  lookLeftBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    camYawTarget = Math.PI * 0.38; // Look at left wall signs
+  });
+}
+if (lookFrontBtn) {
+  lookFrontBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    camYawTarget = 0; // Look straight ahead
+    camPitchTarget = 0;
+  });
+}
+if (lookRightBtn) {
+  lookRightBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    camYawTarget = -Math.PI * 0.38; // Look at right wall signs
+  });
+}
 
 // Sensitivity fixed at 35 (scale: 50 = 1.0×, so 35/50 = 0.70×)
 const mouseSensitivity = 0.70;
@@ -1473,13 +1540,7 @@ function handleSignRaycast(event) {
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   clickRaycaster.setFromCamera(clickMouse, camera);
 
-  const clickableMeshes = [];
-  scene.traverse(child => {
-    if (child.isMesh && child.userData && child.userData.sign) {
-      clickableMeshes.push(child);
-    }
-  });
-
+  // Fast raycast using pre-cached clickableMeshes — zero scene graph traversal
   const intersects = clickRaycaster.intersectObjects(clickableMeshes);
   if (intersects.length > 0) {
     const hit = intersects[0];
@@ -1490,7 +1551,7 @@ function handleSignRaycast(event) {
     const x = localPoint.x;
     const y = localPoint.y;
 
-    if (section.id === "intro") {
+    if (section && section.id === "intro") {
       if (y >= 0.0 && y <= 0.3) {
         if (x < 0) {
           window.open("mailto:melihdemircan14@gmail.com", "_blank");
@@ -1511,7 +1572,7 @@ function handleSignRaycast(event) {
         window.open("https://melihdemircann.github.io/my-site", "_blank");
         return true;
       }
-    } else if (section.id === "yetenekler" && sign.heading === "İLETİŞİM & BAĞLANTILAR") {
+    } else if (section && section.id === "yetenekler" && sign.heading === "İLETİŞİM & BAĞLANTILAR") {
       if (y >= 0.4 && y <= 0.8) {
         window.open("https://github.com/melihdemircann", "_blank");
         return true;
@@ -1531,9 +1592,12 @@ function handleSignRaycast(event) {
 }
 
 window.addEventListener("click", e => {
+  // If recent touch movement happened, ignore click event
+  if (touchMovedDist > 12 && Date.now() - touchStartTime < 500) return;
+
   const intro = document.getElementById("intro");
   if (intro && intro.classList.contains("hidden")) {
-    if (e.target.tagName !== "BUTTON" && !e.target.closest("button") && !e.target.closest("#nav-dots") && !e.target.closest("#hud")) {
+    if (e.target.tagName !== "BUTTON" && !e.target.closest("button") && !e.target.closest("#nav-dots") && !e.target.closest("#hud") && !e.target.closest("#mobile-look-controls")) {
       const wasLinkClicked = handleSignRaycast(e);
       if (!wasLinkClicked) {
         setWalking(!walking);
@@ -1552,50 +1616,49 @@ function animate() {
   const dt = Math.min(clock.getDelta(), 0.05);
   const t = clock.getElapsedTime();
 
-  // Animate custom 3D props
-  animatedProps.forEach(p => {
+  // Animate custom 3D props (zero GC allocation, distance culled)
+  const currentCamZ = camZActual;
+  for (let idx = 0; idx < animatedProps.length; idx++) {
+    const p = animatedProps[idx];
+    // Skip props far from camera (saves CPU when corridor is long)
+    if (Math.abs(p.mesh.position.z - currentCamZ) > 55) continue;
+
     const pt = t + p.phase;
 
-    // Check specific custom meshes for unique animations
-    const hasCone = p.mesh.children.some(c => c.geometry && c.geometry.type === "ConeGeometry");
-    const isGamepad = p.mesh.children.some(c => c.geometry && c.geometry.type === "BoxGeometry" && c.position.x !== 0 && Math.abs(c.position.x) > 0.15);
-    const cursor = p.mesh.children.find(c => c.geometry && c.geometry.type === "BoxGeometry" && c.position.y < -0.05);
-    const arcs = p.mesh.children.filter(c => c.geometry && c.geometry.type === "TorusGeometry");
-    const nodes = p.mesh.children.filter(c => c.geometry && c.geometry.type === "SphereGeometry" && c.scale);
-
-    if (hasCone && p.type === "float") {
+    if (p.hasCone && p.type === "float") {
       // 🚀 Rocket vibration and float
       p.mesh.position.y = p.baseY + Math.sin(pt * 3.5) * 0.12;
       p.mesh.position.x = -2.8 + (Math.random() - 0.5) * 0.02;
       p.mesh.rotation.z = Math.sin(pt * 9) * 0.06;
-    } else if (isGamepad) {
+    } else if (p.isGamepad) {
       // 🎮 Gamepad tilt and float
       p.mesh.position.y = p.baseY + Math.sin(pt * 2.5) * 0.12;
       p.mesh.rotation.z = Math.sin(pt * 2) * 0.28;
       p.mesh.rotation.y = Math.cos(pt * 1.5) * 0.2;
-    } else if (cursor) {
+    } else if (p.cursor) {
       // 🖥️ Terminal cursor blink and float
       p.mesh.position.y = p.baseY + Math.sin(pt * 1.5) * 0.08;
-      cursor.visible = Math.floor(pt * 4) % 2 === 0;
-    } else if (arcs.length > 0) {
+      p.cursor.visible = Math.floor(pt * 4) % 2 === 0;
+    } else if (p.arcs.length > 0) {
       // 📶 Wifi antenna wave pulse
       p.mesh.position.y = p.baseY + Math.sin(pt * 1.5) * 0.05;
-      arcs.forEach((arc, idx) => {
-        const pulseTime = (pt * 2.2 - idx * 0.45) % 1.5;
+      for (let j = 0; j < p.arcs.length; j++) {
+        const arc = p.arcs[j];
+        const pulseTime = (pt * 2.2 - j * 0.45) % 1.5;
         const scale = pulseTime > 0 ? 0.3 + pulseTime * 0.7 : 0.001;
         arc.scale.set(scale, scale, scale);
         if (arc.material) {
           arc.material.opacity = pulseTime > 0 ? 1.0 - pulseTime / 1.5 : 0;
           arc.material.transparent = true;
         }
-      });
-    } else if (nodes.length > 0 && p.type !== "spinMulti") {
+      }
+    } else if (p.nodes.length > 0 && p.type !== "spinMulti") {
       // 🕸️ Network nodes pulsating sizes
       p.mesh.position.y = p.baseY + Math.sin(pt * 1.5) * 0.08;
-      nodes.forEach((n, idx) => {
-        const sc = 1.0 + Math.sin(pt * 4.5 + idx * 0.7) * 0.3;
-        n.scale.set(sc, sc, sc);
-      });
+      for (let j = 0; j < p.nodes.length; j++) {
+        const sc = 1.0 + Math.sin(pt * 4.5 + j * 0.7) * 0.3;
+        p.nodes[j].scale.set(sc, sc, sc);
+      }
     } else if (p.type === "floatSpin") {
       // 🧬 DNA helix/books/chips - float, spin and pulse scale
       p.mesh.position.y = p.baseY + Math.sin(pt * 2) * 0.15;
@@ -1613,23 +1676,21 @@ function animate() {
     } else if (p.type === "scanFloat") {
       // 👁️ Eye Scanner float and scanline sweep
       p.mesh.position.y = p.baseY + Math.sin(pt * 2) * 0.08;
-      const scanLine = p.mesh.children.find(c => c.geometry && c.geometry.type === "BoxGeometry");
-      if (scanLine) {
-        scanLine.position.y = Math.sin(pt * 4.5) * 0.28;
+      if (p.scanLine) {
+        p.scanLine.position.y = Math.sin(pt * 4.5) * 0.28;
       }
     } else if (p.type === "armSwing") {
       // 🦾 Robot arm swinging
       p.mesh.position.y = p.baseY + Math.sin(pt * 2) * 0.04;
-      const seg2 = p.mesh.children.find(c => c.rotation && c.rotation.z !== 0);
-      if (seg2) {
-        seg2.rotation.z = 0.5 + Math.sin(pt * 3) * 0.3;
+      if (p.seg2) {
+        p.seg2.rotation.z = 0.5 + Math.sin(pt * 3) * 0.3;
       }
     } else if (p.type === "gearPair") {
       // ⚙️ Gear pair rotating oppositely
-      if (p.mesh.children[0]) p.mesh.children[0].rotation.y = pt * 2.2;
-      if (p.mesh.children[1]) p.mesh.children[1].rotation.y = -pt * 2.2;
+      if (p.child0) p.child0.rotation.y = pt * 2.2;
+      if (p.child1) p.child1.rotation.y = -pt * 2.2;
     }
-  });
+  }
 
   if (walking) {
     camZTarget -= WALK_SPEED * dt;
@@ -1658,15 +1719,17 @@ function animate() {
     camera.position.y += (1.7 - camera.position.y) * 0.1;
   }
 
-  // 360° Mouse look — virtual joystick with sensitivity control
-  const deadzone = 0.12;
-  if (Math.abs(mouseX) > deadzone) {
-    const speedX = (mouseX - Math.sign(mouseX) * deadzone) * 1.2 * mouseSensitivity * dt;
-    camYawTarget -= speedX;
-  }
-  if (Math.abs(mouseY) > deadzone) {
-    const speedY = (mouseY - Math.sign(mouseY) * deadzone) * 0.85 * mouseSensitivity * dt;
-    camPitchTarget -= speedY;
+  // 360° Mouse look for desktop (touch devices use smooth swipe gestures)
+  if (!isMobile) {
+    const deadzone = 0.12;
+    if (Math.abs(mouseX) > deadzone) {
+      const speedX = (mouseX - Math.sign(mouseX) * deadzone) * 1.2 * mouseSensitivity * dt;
+      camYawTarget -= speedX;
+    }
+    if (Math.abs(mouseY) > deadzone) {
+      const speedY = (mouseY - Math.sign(mouseY) * deadzone) * 0.85 * mouseSensitivity * dt;
+      camPitchTarget -= speedY;
+    }
   }
   camPitchTarget = Math.max(-Math.PI * 0.42, Math.min(Math.PI * 0.42, camPitchTarget));
 
